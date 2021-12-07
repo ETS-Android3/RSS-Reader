@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "42157781631",
+    "firebase_url": "https://rss-reader-dea85-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "rss-reader-dea85",
+    "storage_bucket": "rss-reader-dea85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42157781631:android:38b539d2be2ec4c8cf054a",
+        "android_client_info": {
+          "package_name": "com.example.rss_reader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42157781631-3hilam2vu85gik7e71gl6esnfv5prckl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rss_reader",
+            "certificate_hash": "e4924d6be840fc4d7915b14bd83de1e994443b5a"
+          }
+        },
+        {
+          "client_id": "42157781631-l418bgtsptasrgsa82fvsobqqlqtbht4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7qo_fXmWZ2cHxSys69qTe4H1Na8ktGmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42157781631-l418bgtsptasrgsa82fvsobqqlqtbht4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
