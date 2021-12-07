@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ public class FeedArchiveFragment extends Fragment {
     private RSSFeedCardAdapter rssCardAdapter;
     private NestedScrollView rssNestedScrollView;
     private ProgressBar rssProgressBar;
+    private TextView empty;
     private volatile boolean loading = false;
 
     private final MaterialButton up;
@@ -78,6 +80,8 @@ public class FeedArchiveFragment extends Fragment {
 
         rssRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         rssRecyclerView.setAdapter(rssCardAdapter);
+
+        empty = view.findViewById(R.id.empty_textView_archive_frame_fragment);
 
         up.setOnClickListener(v -> goTop());
         refresh.setOnClickListener(v -> loadFeeds());
@@ -133,15 +137,22 @@ public class FeedArchiveFragment extends Fragment {
                         }
 
                         rssCardAdapter.notifyItemInserted(position);
+                        if (rssSet.size() == 0)
+                            empty.setVisibility(View.VISIBLE);
+                        else
+                            empty.setVisibility(View.GONE);
+
                         loading.dismiss();
-                    }else {
+                    } else {
                         loading.dismiss();
+                        empty.setVisibility(View.VISIBLE);
                         Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, getContext(), "No RSS feed found!")).show();
                     }
 
 
                 } else {
                     loading.dismiss();
+                    empty.setVisibility(View.VISIBLE);
                     Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, getContext(), "Load feeds failed!")).show();
                 }
             }

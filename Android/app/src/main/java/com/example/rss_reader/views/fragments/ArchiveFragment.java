@@ -156,7 +156,15 @@ public class ArchiveFragment extends Fragment {
                                 reference.child("users").child(Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getUserId()).child(Converter.urlToPath(url)).setValue(true, (error, ref) -> {
                                     if (error == null) {
                                         loading.dismiss();
-                                        Objects.requireNonNull(tabs.getTabAt(1)).select();
+
+                                        switch (tabs.getSelectedTabPosition()) {
+                                            case 0:
+                                                Objects.requireNonNull(tabs.getTabAt(1)).select();
+                                                break;
+                                            case 1:
+                                                refresh.performClick();
+                                                break;
+                                        }
                                     }
 
                                 });

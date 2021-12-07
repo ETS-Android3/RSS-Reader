@@ -104,7 +104,7 @@ public class RSSFeedCardAdapter extends RecyclerView.Adapter<RSSFeedCardAdapter.
         // contents of the view with that element
         viewHolder.getUrl().setText(set.get(position).getUrl());
 
-        viewHolder.getDelete().setOnClickListener(v -> new AlertDialog.Builder(v.getContext()).setMessage("Are you sure to remove this rss feed").setPositiveButton("Yes", (dialog, which) -> {
+        viewHolder.getDelete().setOnClickListener(v -> new AlertDialog.Builder(v.getContext(), R.style.DialogFactory).setMessage("Are you sure to remove this rss feed").setPositiveButton("Yes", (dialog, which) -> {
             dialog.dismiss();
             final AlertDialog loading = RSSDialogFactory.createDialog(RSSDialogFactory.RSSDialog.Loading, v.getContext(), null);
             Objects.requireNonNull(loading).show();
