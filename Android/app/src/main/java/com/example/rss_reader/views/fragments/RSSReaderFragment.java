@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +50,7 @@ public class RSSReaderFragment extends Fragment {
     private NestedScrollView rssNestedScrollView;
     private ProgressBar rssProgressBar;
     private ArrayList<String> rssUrlList;
+    private TextView empty;
     private volatile boolean loading = false;
     @SuppressLint("StaticFieldLeak")
     private static volatile RSSReaderFragment instance;
@@ -86,6 +88,8 @@ public class RSSReaderFragment extends Fragment {
 
         rssRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         rssRecyclerView.setAdapter(rssCardAdapter);
+
+        empty = view.findViewById(R.id.empty_textView_rss_reader_fragment);
 
         MaterialButton refresh = view.findViewById(R.id.refresh_rssReader);
         MaterialButton add = view.findViewById(R.id.add_rssReader);
@@ -308,11 +312,17 @@ public class RSSReaderFragment extends Fragment {
             int position = (int) objects.get(0);
             AlertDialog dialog = (AlertDialog) objects.get(1);
             dialog.dismiss();
-            if (position != -1)
-                rssCardAdapter.notifyItemInserted(position);
+            if (position != -1) {
+                if (rssSet.size() == 0)
+                    empty.setVisibility(View.VISIBLE);
+                else
+                    empty.setVisibility(View.GONE);
 
-            else
+                rssCardAdapter.notifyItemInserted(position);
+            } else {
+                empty.setVisibility(View.VISIBLE);
                 Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, getContext(), "Update RSS failed!")).show();
+            }
 
         }
     }

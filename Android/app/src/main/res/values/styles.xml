@@ -20,6 +20,7 @@
         <!--        &lt;!&ndash; Fill the screen &ndash;&gt;-->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:colorAccent">@color/onSecondary</item>
 
         <!--        &lt;!&ndash; No backgrounds, titles or window float &ndash;&gt;-->
         <item name="android:windowBackground">@color/background</item>

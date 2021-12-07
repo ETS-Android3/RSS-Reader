@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ public class RSSArchiveFragment extends Fragment {
     private RSSArchiveCardAdapter rssCardAdapter;
     private NestedScrollView rssNestedScrollView;
     private ProgressBar rssProgressBar;
+    private TextView empty;
     private volatile boolean loading = false;
 
     private final MaterialButton up;
@@ -39,10 +41,13 @@ public class RSSArchiveFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private static volatile RSSArchiveFragment instance;
 
-    private RSSArchiveFragment(MaterialButton up, MaterialButton refresh) {this.up = up; this.refresh = refresh;}
+    private RSSArchiveFragment(MaterialButton up, MaterialButton refresh) {
+        this.up = up;
+        this.refresh = refresh;
+    }
 
     public static RSSArchiveFragment getInstance(MaterialButton up, MaterialButton refresh) {
-        if(instance == null)
+        if (instance == null)
             instance = new RSSArchiveFragment(up, refresh);
 
         return instance;
@@ -70,6 +75,8 @@ public class RSSArchiveFragment extends Fragment {
 
         rssRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         rssRecyclerView.setAdapter(rssCardAdapter);
+
+        empty = view.findViewById(R.id.empty_textView_archive_frame_fragment);
 
         up.setOnClickListener(v -> goTop());
         refresh.setOnClickListener(v -> loadArchives());
@@ -109,6 +116,11 @@ public class RSSArchiveFragment extends Fragment {
         }
 
         rssCardAdapter.notifyItemInserted(position);
+        if (rssSet.size() == 0)
+            empty.setVisibility(View.VISIBLE);
+        else
+            empty.setVisibility(View.GONE);
+
         loading.dismiss();
     }
 

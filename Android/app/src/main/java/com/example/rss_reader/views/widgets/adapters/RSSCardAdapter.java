@@ -3,6 +3,7 @@ package com.example.rss_reader.views.widgets.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -135,8 +136,8 @@ public class RSSCardAdapter extends RecyclerView.Adapter<RSSCardAdapter.ViewHold
         }
         viewHolder.getDescription().setText(HtmlCompat.fromHtml(set.get(position).getDescription(), HtmlCompat.FROM_HTML_OPTION_USE_CSS_COLORS, (source) -> {
             new RSSCardImageLoad().execute(viewHolder.getRssImage(), source);
-            return new ColorDrawable(Color.TRANSPARENT);
-        }, null));
+            return null;
+        }, null).toString().replace("￼", "").replace("\n", ""));
         viewHolder.getSave().setOnClickListener(v -> new AlertDialog.Builder(v.getContext(), R.style.DialogFactory).setMessage("Are you sure to save this article").setPositiveButton("Yes", (dialog, which) -> {
             dialog.dismiss();
 
@@ -159,6 +160,7 @@ public class RSSCardAdapter extends RecyclerView.Adapter<RSSCardAdapter.ViewHold
                             RSSPost post = new RSSPost(set.get(position), response.body());
                             if (RSSSQLiteHandler.getInstance(v.getContext()).saveRSS(v.getContext(), post)) {
                                 viewHolder.getSave().setIcon(v.getResources().getDrawable(R.drawable.ic_baseline_cloud_done_24, v.getContext().getTheme()));
+                                viewHolder.getSave().setIconTint(ColorStateList.valueOf(v.getResources().getColor(R.color.primary, v.getContext().getTheme())));
                                 loading.dismiss();
                                 Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, v.getContext(), "Downloaded!")).show();
                             } else {

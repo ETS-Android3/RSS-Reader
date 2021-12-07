@@ -9,6 +9,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,10 +133,13 @@ public class RSSArchiveCardAdapter extends RecyclerView.Adapter<RSSArchiveCardAd
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        viewHolder.getDescription().setText(HtmlCompat.fromHtml(set.get(position).getRSSArticle().getDescription(), HtmlCompat.FROM_HTML_OPTION_USE_CSS_COLORS, (source) -> {
+
+        Spanned spanned = HtmlCompat.fromHtml(set.get(position).getRSSArticle().getDescription(), HtmlCompat.FROM_HTML_OPTION_USE_CSS_COLORS, (source) -> {
             new RSSPostLoadImage().execute(viewHolder.getRssImage(), source);
-            return new ColorDrawable(Color.TRANSPARENT);
-        }, null));
+            return null;
+        }, null);
+
+        viewHolder.getDescription().setText(spanned.toString().replace("￼", "").replace("\n", ""));
 
         viewHolder.getDelete().setOnClickListener(v -> new AlertDialog.Builder(v.getContext(), R.style.DialogFactory).setMessage("Are you sure to remove this article").setPositiveButton("Yes", (dialog, which) -> {
             dialog.dismiss();
@@ -168,7 +173,7 @@ public class RSSArchiveCardAdapter extends RecyclerView.Adapter<RSSArchiveCardAd
             NestedScrollView nestedScrollView = rssPostDialogView.findViewById(R.id.rssPost_nestedScrollView);
 
             String data = InternalStorageHandler.readHTML(v.getContext(), set.get(position).getHtml());
-            if(data!=null) {
+            if (data != null) {
                 WebSettings settings = content.getSettings();
 
                 settings.setBuiltInZoomControls(true);
@@ -191,7 +196,7 @@ public class RSSArchiveCardAdapter extends RecyclerView.Adapter<RSSArchiveCardAd
                 loading.dismiss();
 
                 dialog.show();
-            }else{
+            } else {
                 loading.dismiss();
 
                 Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, v.getContext(), "Load file failed!")).show();
