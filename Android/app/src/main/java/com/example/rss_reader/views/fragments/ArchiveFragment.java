@@ -3,6 +3,7 @@ package com.example.rss_reader.views.fragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.rss_reader.R;
+import com.example.rss_reader.databases.SharedPreferencesHandler;
 import com.example.rss_reader.models.RSSSite;
 import com.example.rss_reader.networking.repositories.RSSRepository;
 import com.example.rss_reader.utils.Converter;
 import com.example.rss_reader.utils.RSSDialogFactory;
 import com.example.rss_reader.utils.RSSToastFactory;
 import com.example.rss_reader.views.activities.AuthenticateActivity;
-import com.facebook.AccessToken;
+import com.example.rss_reader.views.activities.MainActivity;
 import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
@@ -92,12 +94,20 @@ public class ArchiveFragment extends Fragment {
         refresh = view.findViewById(R.id.refresh_archive);
         up = view.findViewById(R.id.goTop_archive);
 
-        logout.setOnClickListener(v -> {
-            LoginManager.getInstance().logOut();
-            Intent intent = new Intent(getActivity(), AuthenticateActivity.class);
-            startActivity(intent);
-            requireActivity().finishAffinity();
-        });
+        logout.setOnClickListener(v -> new AlertDialog.Builder(v.getContext(), R.style.DialogFactory).setMessage("Are you sure to log out").setPositiveButton("Yes", (dialog, which) -> {
+            dialog.dismiss();
+
+
+            if (SharedPreferencesHandler.getInstance(getContext()).saveID(null)) {
+                LoginManager.getInstance().logOut();
+                Intent intent = new Intent(getActivity(), AuthenticateActivity.class);
+                startActivity(intent);
+                requireActivity().finishAffinity();
+            } else
+                RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, getContext(), "Log out failed");
+
+        }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).create().show());
+
         add.setOnClickListener(v -> addUrl());
 
         refresh.setOnClickListener(v -> {
@@ -153,7 +163,7 @@ public class ArchiveFragment extends Fragment {
                         if (response.isSuccessful()) {
                             try {
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RSS");
-                                reference.child("users").child(Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getUserId()).child(Converter.urlToPath(url)).setValue(true, (error, ref) -> {
+                                reference.child("users").child(Objects.requireNonNull(SharedPreferencesHandler.getInstance(getContext()).getId())).child(Converter.urlToPath(url)).setValue(true, (error, ref) -> {
                                     if (error == null) {
                                         loading.dismiss();
 
