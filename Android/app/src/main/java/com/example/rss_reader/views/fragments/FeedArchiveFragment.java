@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rss_reader.R;
+import com.example.rss_reader.databases.SharedPreferencesHandler;
 import com.example.rss_reader.models.RSSFeed;
 import com.example.rss_reader.utils.Converter;
 import com.example.rss_reader.utils.RSSDialogFactory;
 import com.example.rss_reader.utils.RSSToastFactory;
 import com.example.rss_reader.views.widgets.adapters.RSSFeedCardAdapter;
-import com.facebook.AccessToken;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -110,7 +110,7 @@ public class FeedArchiveFragment extends Fragment {
         loading.show();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RSS");
-        reference.child("users").child(Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getUserId()).get().addOnCompleteListener(task -> {
+        reference.child("users").child(Objects.requireNonNull(SharedPreferencesHandler.getInstance(getContext()).getId())).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
                 loading.dismiss();
@@ -124,7 +124,7 @@ public class FeedArchiveFragment extends Fragment {
                     if (task.getResult().getValue() != null) {
                         task.getResult().getChildren().forEach(dataSnapshot -> {
                             if (dataSnapshot.getValue(boolean.class))
-                                rssReserveSet.add(new RSSFeed(AccessToken.getCurrentAccessToken().getUserId(), Converter.pathToUrl(Objects.requireNonNull(dataSnapshot.getKey()))));
+                                rssReserveSet.add(new RSSFeed(Objects.requireNonNull(SharedPreferencesHandler.getInstance(getContext()).getId()), Converter.pathToUrl(Objects.requireNonNull(dataSnapshot.getKey()))));
                         });
 
                         int limit = 10;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="CustomDialog" parent="android:Theme.Dialog">
         <!--        &lt;!&ndash; Fill the screen &ndash;&gt;-->
@@ -20,13 +20,14 @@
         <!--        &lt;!&ndash; Fill the screen &ndash;&gt;-->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:colorAccent">@color/onSecondary</item>
+        <item name="android:colorAccent">?attr/colorOnSecondary</item>
+        <item name="android:colorForeground">?attr/colorOnSecondary</item>
 
         <!--        &lt;!&ndash; No backgrounds, titles or window float &ndash;&gt;-->
-        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowBackground">?attr/background</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:textColor">@color/onSecondary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
 
         <!--        <item name="android:windowIsFloating">false</item>>-->
     </style>
@@ -52,7 +53,7 @@
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         // Set the splash screen background, animated icon, and animation duration.
-        <item name="windowSplashScreenBackground">@color/background</item>
+        <item name="windowSplashScreenBackground">?attr/background</item>
         <item name="windowActionBar">false</item>
 
         // Use windowSplashScreenAnimatedIcon to add either a drawable or an
@@ -67,6 +68,24 @@
         <!--        </item>-->
         // Set the theme of the Activity that directly follows your splash screen.
         <item name="postSplashScreenTheme">@style/Theme.RRSReader</item>
+
+<!--        <item name="colorPrimary">@color/primary</item>-->
+<!--        <item name="colorPrimaryVariant">@color/primaryVariant</item>-->
+<!--        <item name="colorOnPrimary">@color/onPrimary</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/secondary</item>-->
+<!--        <item name="colorSecondaryVariant">@color/secondaryVariant</item>-->
+<!--        <item name="colorOnSecondary">@color/onSecondary</item>-->
+<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+<!--        <item name="android:statusBarColor" tools:targetApi="l">@color/onBackground</item>-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="background">@color/background</item>-->
+<!--        <item name="colorOnBackground">@color/onBackground</item>-->
+
+<!--        <item name="colorSurface">@color/surface</item>-->
+<!--        <item name="colorOnSurface">@color/onSurface</item>-->
+
+<!--        <item name="colorError">@color/error</item>-->
         # Required.
     </style>
 

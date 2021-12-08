@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rss_reader.R;
+import com.example.rss_reader.databases.SharedPreferencesHandler;
 import com.example.rss_reader.models.RSSArticle;
 import com.example.rss_reader.models.RSSSite;
 import com.example.rss_reader.networking.repositories.RSSRepository;
@@ -27,7 +28,6 @@ import com.example.rss_reader.utils.Converter;
 import com.example.rss_reader.utils.RSSDialogFactory;
 import com.example.rss_reader.utils.RSSToastFactory;
 import com.example.rss_reader.views.widgets.adapters.RSSCardAdapter;
-import com.facebook.AccessToken;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -117,7 +117,7 @@ public class RSSReaderFragment extends Fragment {
         AlertDialog dialog = RSSDialogFactory.createDialog(RSSDialogFactory.RSSDialog.Loading, getContext(), null);
         dialog.show();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RSS");
-        reference.child("users").child(Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getUserId()).get().addOnCompleteListener(task -> {
+        reference.child("users").child(Objects.requireNonNull(SharedPreferencesHandler.getInstance(getContext()).getId())).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
                 dialog.dismiss();
@@ -206,7 +206,7 @@ public class RSSReaderFragment extends Fragment {
                         if (response.isSuccessful()) {
                             try {
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("RSS");
-                                reference.child("users").child(Objects.requireNonNull(AccessToken.getCurrentAccessToken()).getUserId()).child(Converter.urlToPath(url)).setValue(true, (error, ref) -> {
+                                reference.child("users").child(Objects.requireNonNull(SharedPreferencesHandler.getInstance(getContext()).getId())).child(Converter.urlToPath(url)).setValue(true, (error, ref) -> {
                                     if (error == null) {
                                         loadingDialog.dismiss();
                                         loadFeeds();

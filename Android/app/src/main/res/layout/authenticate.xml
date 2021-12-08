@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient_vertical">
 
     <RelativeLayout
@@ -21,17 +22,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="RSS Reader"
-                android:textColor="@color/onSecondary"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="48sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
         </FrameLayout>
 
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title_authenticate">
+            android:layout_below="@id/title_authenticate"
+            android:orientation="vertical">
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
@@ -40,9 +42,32 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
+                android:background="@drawable/rounded_all_shape"
+                android:backgroundTint="?attr/colorSecondary"
+                android:drawableTint="?attr/colorOnSecondary"
                 android:minWidth="48dp"
-                android:minHeight="48dp" />
-        </FrameLayout>
+                android:minHeight="48dp"
+                android:textColor="?attr/colorOnSecondary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/guest_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_all_shape"
+                app:backgroundTint="?attr/colorSecondaryVariant"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="0dp"
+                android:text="Continue as Guest"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

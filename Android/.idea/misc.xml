@@ -12,6 +12,7 @@
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable-v28/ic_baseline_delete_sweep_24.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable-v28/ic_baseline_home_24.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable-v28/menu_item.xml" value="0.175" />
+        <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable/gradient_horizontal.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable/gradient_vertical.xml" value="0.403125" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/drawable/ic_baseline_add_48.xml" value="0.2328125" />
@@ -38,10 +39,10 @@
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/loading_dialog.xml" value="0.21145833333333333" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/navigation.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/post.xml" value="0.21145833333333333" />
-        <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_archive_card.xml" value="0.67" />
+        <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_archive_card.xml" value="0.25" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_card.xml" value="0.25" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_feed_card.xml" value="0.2171875" />
-        <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_post.xml" value="0.434375" />
+        <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_post.xml" value="0.25" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_post_card.xml" value="0.21145833333333333" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_reader_fragment.xml" value="0.23177083333333334" />
         <entry key="..\:/Users/yehat/OneDrive/Documents/GitHub/RRS-Reader/Android/app/src/main/res/layout/rss_toast.xml" value="0.21927083333333333" />

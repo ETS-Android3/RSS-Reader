@@ -33,8 +33,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="8dp"
-                android:backgroundTint="@android:color/transparent"
                 android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:insetLeft="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
@@ -46,16 +46,16 @@
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:iconSize="24dp"
-                app:iconTint="@color/primary"
+                app:iconTint="?attr/colorError"
                 app:shapeAppearanceOverlay="@style/Circle" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/rssPost_nestedScrollView"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <WebView
             android:id="@+id/rss_post_webView"
@@ -67,18 +67,18 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goTop_rssPost"
         android:layout_width="wrap_content"
-        android:stateListAnimator="@null"
-        android:outlineSpotShadowColor="@android:color/transparent"
-        android:outlineAmbientShadowColor="@android:color/transparent"
-        app:borderWidth="0dp"
-        android:elevation="0dp"
-        android:tint="@color/primary"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="@android:color/transparent"
+        android:elevation="0dp"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:outlineSpotShadowColor="@android:color/transparent"
         android:src="@drawable/ic_baseline_arrow_upward_24"
-        tools:targetApi="p"
-        tools:ignore="ContentDescription" />
+        android:stateListAnimator="@null"
+        app:borderWidth="0dp"
+        app:tint="?attr/colorPrimary"
+        tools:ignore="ContentDescription"
+        tools:targetApi="p" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
