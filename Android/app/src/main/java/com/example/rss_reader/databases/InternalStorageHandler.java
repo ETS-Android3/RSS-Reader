@@ -1,7 +1,6 @@
 package com.example.rss_reader.databases;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -11,14 +10,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 public class InternalStorageHandler {
     public static boolean saveHTML(Context context, String name, String data) {
         try (FileOutputStream fos = context.openFileOutput(name + ".html", Context.MODE_PRIVATE)) {
             fos.write(data.getBytes());
             fos.close();
-            Log.i("Write", data);
             return true;
         } catch (IOException e) {
             e.printStackTrace();

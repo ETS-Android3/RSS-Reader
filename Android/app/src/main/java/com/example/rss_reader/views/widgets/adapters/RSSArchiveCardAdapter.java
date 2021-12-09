@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.text.Spanned;
 import android.util.Log;
@@ -40,6 +40,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -183,8 +184,30 @@ public class RSSArchiveCardAdapter extends RecyclerView.Adapter<RSSArchiveCardAd
                 settings.setAppCachePath(v.getContext().getApplicationContext().getCacheDir().getPath());
                 settings.setCacheMode(WebSettings.LOAD_DEFAULT);
                 content.setWebViewClient(new WebViewClient());
-                content.loadDataWithBaseURL(null, data, "text/html", "UTF-8", null);
+                if (isNetworkAvailable(v.getContext())) {
+                    URL url;
+                    try {
+                        url = new URL(set.get(position).getRSSArticle().getLink());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
 
+                        try {
+                            url = new URL(set.get(position).getRSSArticle().getGuid());
+                        } catch (MalformedURLException malformedURLException) {
+                            malformedURLException.printStackTrace();
+                            loading.dismiss();
+
+                            Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, v.getContext(), "Load file failed!")).show();
+                            return;
+                        }
+                    }
+
+                    content.loadUrl(url.toString());
+                } else
+                    content.loadDataWithBaseURL(null, data, "text/html", "UTF-8", null);
+
+
+//                content.loadDataWithBaseURL(url.getProtocol() + "://" + url.getHost() + "/", data, "text/html", "UTF-8", null);
 //                content.loadUrl(set.get(position).getRSSArticle().getLink());
 
                 AlertDialog dialog = builder.create();
@@ -238,5 +261,12 @@ public class RSSArchiveCardAdapter extends RecyclerView.Adapter<RSSArchiveCardAd
                 exception.printStackTrace();
             }
         }
+    }
+
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
