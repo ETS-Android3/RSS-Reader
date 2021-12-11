@@ -124,18 +124,18 @@ public class RSSReaderFragment extends Fragment {
                 Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, getContext(), task.getException().getMessage())).show();
             } else {
                 Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
+                rssUrlList.clear();
 
-                if (task.isSuccessful()) {
-                    rssUrlList.clear();
+                if (task.getResult().getValue() != null)
+                    task.getResult().getChildren().forEach(dataSnapshot -> {
+                        if (dataSnapshot.getValue(boolean.class))
+                            rssUrlList.add(Converter.pathToUrl(Objects.requireNonNull(dataSnapshot.getKey())));
+                    });
+                else
+                    Objects.requireNonNull(RSSToastFactory.createToast(RSSToastFactory.RSSToast.Information, getContext(), "No RSS feed found")).show();
 
-                    if (task.getResult().getValue() != null)
-                        task.getResult().getChildren().forEach(dataSnapshot -> {
-                            if (dataSnapshot.getValue(boolean.class))
-                                rssUrlList.add(Converter.pathToUrl(Objects.requireNonNull(dataSnapshot.getKey())));
-                        });
+                refresh(dialog);
 
-                    refresh(dialog);
-                }
             }
         });
     }
@@ -143,6 +143,7 @@ public class RSSReaderFragment extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     private void refresh(AlertDialog dialog) {
         rssSet.clear();
+        rssReserveSet.clear();
         rssCardAdapter.notifyDataSetChanged();
 
         CountDownLatch latch = new CountDownLatch(rssUrlList.size());

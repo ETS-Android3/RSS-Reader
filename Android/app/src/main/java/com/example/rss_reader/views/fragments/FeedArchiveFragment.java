@@ -41,21 +41,7 @@ public class FeedArchiveFragment extends Fragment {
     private TextView empty;
     private volatile boolean loading = false;
 
-    private final MaterialButton up;
-    private final MaterialButton refresh;
-    @SuppressLint("StaticFieldLeak")
-    private static volatile FeedArchiveFragment instance;
-
-    private FeedArchiveFragment(MaterialButton up, MaterialButton refresh) {
-        this.up = up;
-        this.refresh = refresh;
-    }
-
-    public static FeedArchiveFragment getInstance(MaterialButton up, MaterialButton refresh) {
-        if (instance == null)
-            instance = new FeedArchiveFragment(up, refresh);
-
-        return instance;
+    public FeedArchiveFragment() {
     }
 
     @Override
@@ -83,9 +69,6 @@ public class FeedArchiveFragment extends Fragment {
 
         empty = view.findViewById(R.id.empty_textView_archive_frame_fragment);
 
-        up.setOnClickListener(v -> goTop());
-        refresh.setOnClickListener(v -> loadFeeds());
-
         rssNestedScrollView.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (!loading)
                 if (scrollY == (rssNestedScrollView.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
@@ -102,7 +85,7 @@ public class FeedArchiveFragment extends Fragment {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void loadFeeds() {
+    public void loadFeeds() {
         rssSet.clear();
         rssReserveSet.clear();
         rssCardAdapter.notifyDataSetChanged();

@@ -70,10 +70,18 @@ public class ArchiveFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        loadFragment(RSSArchiveFragment.getInstance(up, refresh));
+                        RSSArchiveFragment rss = new RSSArchiveFragment();
+                        up.setOnClickListener(v -> rss.goTop());
+                        refresh.setOnClickListener(v -> rss.loadArchives());
+
+                        loadFragment(rss);
                         break;
                     case 1:
-                        loadFragment(FeedArchiveFragment.getInstance(up, refresh));
+                        FeedArchiveFragment feed = new FeedArchiveFragment();
+                        up.setOnClickListener(v -> feed.goTop());
+                        refresh.setOnClickListener(v -> feed.loadFeeds());
+
+                        loadFragment(feed);
                         break;
                 }
             }
@@ -110,20 +118,11 @@ public class ArchiveFragment extends Fragment {
 
         add.setOnClickListener(v -> addUrl());
 
-        refresh.setOnClickListener(v -> {
-            switch (tabs.getSelectedTabPosition()) {
-                case 0:
-                    loadFragment(RSSArchiveFragment.getInstance(up, refresh));
-                    break;
-                case 1:
-                    loadFragment(FeedArchiveFragment.getInstance(up, refresh));
-                    break;
-                default:
-                    break;
-            }
-        });
+        RSSArchiveFragment rss = new RSSArchiveFragment();
+        up.setOnClickListener(v -> rss.goTop());
+        refresh.setOnClickListener(v -> rss.loadArchives());
 
-        loadFragment(RSSArchiveFragment.getInstance(up, refresh));
+        loadFragment(rss);
 
         return view;
     }
